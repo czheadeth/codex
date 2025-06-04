@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresque Temporelle</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background: #000;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1px;
+        }
+        .entry {
+            padding: 10px 40px;
+            position: relative;
+            background: inherit;
+            width: 50%;
+        }
+        .entry.left {
+            left: 0;
+        }
+        .entry.right {
+            left: 50%;
+        }
+        .entry::before {
+            content: " ";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: white;
+            border: 3px solid #000;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .entry.right::before {
+            left: -10px;
+        }
+        .entry-content {
+            padding: 20px;
+            background: white;
+            position: relative;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fresque Temporelle</h1>
+    <div class="timeline" id="timeline"></div>
+    <script>
+        const events = [
+            { year: '1776', description: 'Déclaration d\'indépendance des États-Unis' },
+            { year: '1789', description: 'Révolution française' },
+            { year: '1969', description: 'Premier pas sur la Lune' },
+            { year: '1989', description: 'Chute du mur de Berlin' },
+            { year: '2020', description: 'Pandémie mondiale de COVID-19' }
+        ];
+
+        const timeline = document.getElementById('timeline');
+
+        events.forEach((ev, index) => {
+            const entry = document.createElement('div');
+            entry.className = 'entry ' + (index % 2 === 0 ? 'left' : 'right');
+
+            const content = document.createElement('div');
+            content.className = 'entry-content';
+
+            const title = document.createElement('h3');
+            title.textContent = ev.year;
+
+            const desc = document.createElement('p');
+            desc.textContent = ev.description;
+
+            content.appendChild(title);
+            content.appendChild(desc);
+            entry.appendChild(content);
+            timeline.appendChild(entry);
+        });
+    </script>
+</body>
+</html>
